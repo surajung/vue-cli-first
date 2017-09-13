@@ -1,13 +1,32 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <button @click="fetchPosts">불러오기</button>
+    <ul>
+      <li v-for="post in posts">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.body }}</p>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+      posts: []
+    }
+  },
+  methods: {
+    fetchPosts () {
+      this.axios.get('https://jsonplaceholder.typicode.com/posts')
+      .then((response) => {
+        console.log(response)
+        this.posts = response.data
+      })
+    }
+  }
 }
 </script>
 
@@ -19,5 +38,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  text-align:left;
 }
 </style>
