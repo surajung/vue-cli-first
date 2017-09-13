@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <button @click="fetchPosts">불러오기</button>
-    <ul>
+    <ul class="type01">
       <li v-for="post in posts">
         <h1>{{ post.title }}</h1>
         <p>{{ post.body }}</p>
@@ -19,10 +19,13 @@ export default {
     }
   },
   methods: {
-    fetchPosts () {
-      this.axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then((response) => {
-        console.log(response)
+    fetchPosts () { // es5 : function fetchPosts ()
+      this.axios.get('https://jsonplaceholder.typicode.com/posts', {
+        params: {
+          userId: 1
+        }
+      }).then((response) => { // es5 : .then(function(response) {}).bind(this)
+        console.log(response.data)
         this.posts = response.data
       })
     }
@@ -30,14 +33,12 @@ export default {
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-  text-align:left;
+<style lang="scss">
+$point-color: #123456;
+ul.type01 {
+  li {
+    h1 {font-size: 20px;color:$point-color;}
+    p {font-size: 12px;color:blue;}
+  }
 }
 </style>
