@@ -7,6 +7,9 @@ import VueAxios from 'vue-axios'
 
 Vue.use(VueAxios, axios)
 
+var bus = new Vue()
+Vue.prototype.$bus = bus
+
 // Vue.config.productionTip = false
 
 /* eslint-disable no-new */
